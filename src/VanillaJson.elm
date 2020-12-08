@@ -10,6 +10,7 @@ import Character
         , classToString
         , getCharacterStatOrder
         , itemToString
+        , makeCharacter
         , stringToCharacterStat
         , stringToItem
         )
@@ -80,27 +81,14 @@ statEntryToJson ( key, statHolder ) =
 
 decodeCharacter : Json.Decode.Decoder Character
 decodeCharacter =
-    Json.Decode.map7 makeCharacter
+    Json.Decode.map7 Character.makeCharacter
         (Json.Decode.field "Class" decodeClass)
         (Json.Decode.field "Name" decodeName)
+        (Json.Decode.field "Stats" decodeStatHolder)
         (Json.Decode.field "Experience" Json.Decode.int)
         (Json.Decode.field "StatPoints" Json.Decode.int)
         (Json.Decode.field "Gold" Json.Decode.int)
-        (Json.Decode.field "Stats" decodeStatHolder)
         (Json.Decode.field "Inventory" decodeInventory)
-
-
-makeCharacter : CharacterClass -> Maybe String -> Int -> Int -> Int -> Dict String StatHolder -> List Item -> Character
-makeCharacter class name experience statPoints gold stats inventory =
-    Character
-        { class = class
-        , name = name
-        , experience = experience
-        , statPoints = statPoints
-        , gold = gold
-        , stats = stats
-        , inventory = inventory
-        }
 
 
 decodeClass : Json.Decode.Decoder CharacterClass

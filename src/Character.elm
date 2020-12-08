@@ -8,6 +8,7 @@ module Character exposing
     , classToString
     , getCharacterStatOrder
     , itemToString
+    , makeCharacter
     , makeStatDictEntry
     , stringToCharacterStat
     , stringToItem
@@ -342,3 +343,16 @@ stringToItem item =
 
         _ ->
             Potions
+
+
+makeCharacter : CharacterClass -> Maybe String -> Dict String StatHolder -> Int -> Int -> Int -> List Item -> Character
+makeCharacter class name stats experience statPoints gold inventory =
+    Character
+        { class = class
+        , name = name
+        , stats = stats
+        , experience = experience
+        , statPoints = statPoints
+        , gold = gold
+        , inventory = inventory
+        }

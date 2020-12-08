@@ -1,35 +1,33 @@
 module Utils exposing (initCharacter, initJsonCharacterString)
 
-import Character exposing (Character(..), CharacterClass(..), CharacterStat(..), Item(..))
+import Character exposing (Character(..), CharacterClass(..), CharacterStat(..), Item(..), makeCharacter)
 import Dict exposing (Dict)
 
 
 initCharacter : Character
 initCharacter =
-    Character
-        { class = Wanderer
-        , name = Just "Bilbo"
-        , stats =
-            Dict.fromList
-                [ Character.makeStatDictEntry Strength 11
-                , Character.makeStatDictEntry Vitality 6
-                , Character.makeStatDictEntry Agility 10
-                , Character.makeStatDictEntry Intelligence 12
-                , Character.makeStatDictEntry Luck 9
-                , Character.makeStatDictEntry Aura 9
-                , Character.makeStatDictEntry Morality 4
-                ]
-        , experience = 7
-        , statPoints = 22
-        , gold = 429
-        , inventory =
-            [ ShortSword
-            , Shield
-            , Torch
-            , Ring
-            , Potions
+    makeCharacter
+        Wanderer
+        (Just "Bilbo")
+        (Dict.fromList
+            [ Character.makeStatDictEntry Strength 11
+            , Character.makeStatDictEntry Vitality 6
+            , Character.makeStatDictEntry Agility 10
+            , Character.makeStatDictEntry Intelligence 12
+            , Character.makeStatDictEntry Luck 9
+            , Character.makeStatDictEntry Aura 9
+            , Character.makeStatDictEntry Morality 4
             ]
-        }
+        )
+        7
+        22
+        429
+        [ ShortSword
+        , Shield
+        , Torch
+        , Ring
+        , Potions
+        ]
 
 
 initJsonCharacterString : String
