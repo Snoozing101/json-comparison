@@ -1,7 +1,8 @@
-module Utils exposing(initCharacter, initJsonCharacterString)
+module Utils exposing (initCharacter, initJsonCharacterString)
 
 import Character exposing (Character(..), CharacterClass(..), CharacterStat(..), Item(..))
-import Dict exposing(Dict)
+import Dict exposing (Dict)
+
 
 initCharacter : Character
 initCharacter =
@@ -10,13 +11,13 @@ initCharacter =
         , name = Just "Bilbo"
         , stats =
             Dict.fromList
-                [ Character.makeStatDictEntry Strength 11 0
-                , Character.makeStatDictEntry Vitality 6 1
-                , Character.makeStatDictEntry Agility 10 2
-                , Character.makeStatDictEntry Intelligence 12 3
-                , Character.makeStatDictEntry Luck 9 4
-                , Character.makeStatDictEntry Aura 9 5
-                , Character.makeStatDictEntry Morality 4 6
+                [ Character.makeStatDictEntry Strength 11
+                , Character.makeStatDictEntry Vitality 6
+                , Character.makeStatDictEntry Agility 10
+                , Character.makeStatDictEntry Intelligence 12
+                , Character.makeStatDictEntry Luck 9
+                , Character.makeStatDictEntry Aura 9
+                , Character.makeStatDictEntry Morality 4
                 ]
         , experience = 7
         , statPoints = 22

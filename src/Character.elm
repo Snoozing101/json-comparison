@@ -6,8 +6,11 @@ module Character exposing
     , StatHolder
     , characterStatToString
     , classToString
+    , getCharacterStatOrder
     , itemToString
     , makeStatDictEntry
+    , stringToCharacterStat
+    , stringToItem
     )
 
 import Dict exposing (Dict)
@@ -172,13 +175,41 @@ classToString class =
             "Barbarian"
 
 
-makeStatDictEntry : CharacterStat -> Int -> Int -> ( String, StatHolder )
-makeStatDictEntry stat value order =
+makeStatDictEntry : CharacterStat -> Int -> ( String, StatHolder )
+makeStatDictEntry stat value =
     let
         statString =
             characterStatToString stat
+
+        order =
+            getCharacterStatOrder stat
     in
     ( statString, { stat = stat, value = value, order = order } )
+
+
+getCharacterStatOrder : CharacterStat -> Int
+getCharacterStatOrder stat =
+    case stat of
+        Strength ->
+            0
+
+        Vitality ->
+            1
+
+        Agility ->
+            2
+
+        Intelligence ->
+            3
+
+        Luck ->
+            4
+
+        Aura ->
+            5
+
+        Morality ->
+            6
 
 
 characterStatToString : CharacterStat -> String
@@ -204,3 +235,110 @@ characterStatToString stat =
 
         Morality ->
             "Morality"
+
+
+stringToCharacterStat : String -> CharacterStat
+stringToCharacterStat stat =
+    case stat of
+        "Strength" ->
+            Strength
+
+        "Vitality" ->
+            Vitality
+
+        "Agility" ->
+            Agility
+
+        "Intelligence" ->
+            Intelligence
+
+        "Luck" ->
+            Luck
+
+        "Aura" ->
+            Aura
+
+        "Morality" ->
+            Morality
+
+        _ ->
+            Strength
+
+
+stringToItem : String -> Item
+stringToItem item =
+    case item of
+        "TwoHandedSword" ->
+            TwoHandedSword
+
+        "BroardSword" ->
+            BroardSword
+
+        "Short Sword" ->
+            ShortSword
+
+        "Axe" ->
+            Axe
+
+        "Mace" ->
+            Mace
+
+        "Flail" ->
+            Flail
+
+        "Dagger" ->
+            Dagger
+
+        "Gauntlet" ->
+            Gauntlet
+
+        "HeavyArmour" ->
+            HeavyArmour
+
+        "ChainArmour" ->
+            ChainArmour
+
+        "LeatherArmour" ->
+            LeatherArmour
+
+        "HeavyRobe" ->
+            HeavyRobe
+
+        "GoldHelmet" ->
+            GoldHelmet
+
+        "Headpiece" ->
+            Headpiece
+
+        "Shield" ->
+            Shield
+
+        "Torch" ->
+            Torch
+
+        "Necronomicon" ->
+            Necronomicon
+
+        "Scrolls" ->
+            Scrolls
+
+        "Ring" ->
+            Ring
+
+        "MysticAmulet" ->
+            MysticAmulet
+
+        "Sash" ->
+            Sash
+
+        "Cloak" ->
+            Cloak
+
+        "HealingSalve" ->
+            HealingSalve
+
+        "Potions" ->
+            Potions
+
+        _ ->
+            Potions

@@ -7,11 +7,13 @@ import Character
         , CharacterStat(..)
         , Item(..)
         )
+import Dict
 import Expect
+import Json.Decode
 import Json.Encode
 import Test exposing (Test, describe, test)
 import Utils
-import VanillaJson exposing (encodeCharacter)
+import VanillaJson exposing (decodeCharacter, decodeCharacterStat, decodeClass, decodeInventory, decodeName, decodeStatHolder, encodeCharacter)
 
 
 all : Test
@@ -27,4 +29,85 @@ all =
                         Utils.initJsonCharacterString
                 in
                 Expect.equal (Json.Encode.encode 0 (VanillaJson.encodeCharacter newCharacter)) jsonCharacterString
+        , test "Decode a Class" <|
+            \_ ->
+                let
+                    jsonString =
+                        "{\"Class\":\"Barbarian\"}"
+
+                    classDecoder =
+                        Json.Decode.field "Class" VanillaJson.decodeClass
+                in
+                Expect.equal (Json.Decode.decodeString classDecoder jsonString) (Ok Barbarian)
+        , test "Decode a Name to Maybe String" <|
+            \_ ->
+                let
+                    jsonString =
+                        "{\"Name\":\"Bilbo\"}"
+
+                    nameDecoder =
+                        Json.Decode.field "Name" VanillaJson.decodeName
+                in
+                Expect.equal (Json.Decode.decodeString nameDecoder jsonString) (Ok (Just "Bilbo"))
+        , test "Decode a CharacterStat" <|
+            \_ ->
+                let
+                    string =
+                        "\"Strength\""
+                in
+                Expect.equal (Json.Decode.decodeString VanillaJson.decodeCharacterStat string) (Ok Strength)
+        , test "Decode a StatHolder" <|
+            \_ ->
+                let
+                    jsonString =
+                        "{\"Intelligence\":12}"
+
+                    statHolder =
+                        Character.makeStatDictEntry Intelligence 12
+
+                    result =
+                        Dict.fromList [ statHolder ]
+                in
+                Expect.equal (Json.Decode.decodeString VanillaJson.decodeStatHolder jsonString) (Ok result)
+        , test "Decode multiple StatHolders" <|
+            \_ ->
+                let
+                    jsonString =
+                        """
+                        {
+                            "Strength": 8,
+                            "Vitality": 10,
+                            "Intelligence": 19,
+                            "Luck": 2,
+                            "Aura": 16,
+                            "Morality": 12
+                        }
+                        """
+
+                    result =
+                        Dict.fromList
+                            [ Character.makeStatDictEntry Strength 8
+                            , Character.makeStatDictEntry Vitality 10
+                            , Character.makeStatDictEntry Intelligence 19
+                            , Character.makeStatDictEntry Luck 2
+                            , Character.makeStatDictEntry Aura 16
+                            , Character.makeStatDictEntry Morality 12
+                            ]
+                in
+                Expect.equal (Json.Decode.decodeString VanillaJson.decodeStatHolder jsonString) (Ok result)
+        , test "Decode inventory" <|
+            \_ ->
+                let
+                    jsonString =
+                        """
+                            ["Shield"]
+                        """
+
+                    result =
+                        [ Shield ]
+                in
+                Expect.equal (Json.Decode.decodeString VanillaJson.decodeInventory jsonString) (Ok result)
+        , test "Decode a Character" <|
+            \_ ->
+                Expect.equal (Json.Decode.decodeString VanillaJson.decodeCharacter Utils.initJsonCharacterString) (Ok Utils.initCharacter)
         ]
