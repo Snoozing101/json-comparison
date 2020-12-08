@@ -51,34 +51,6 @@ statEntryToJson ( key, statHolder ) =
     ( key, Json.Encode.int statHolder.value )
 
 
-
-{-
-   {
-     "Class": "Wanderer",
-     "Name": "Bilbo",
-     "Experience": 7,
-     "StatPoints": 22,
-     "Gold": 429,
-     "Stats": {
-       "Agility": 10,
-       "Aura": 9,
-       "Intelligence": 12,
-       "Luck": 9,
-       "Morality": 4,
-       "Strength": 11,
-       "Vitality": 6
-     },
-     "Inventory": [
-       "Short Sword",
-       "Shield",
-       "Torch",
-       "Ring",
-       "Potions"
-     ]
-   }
--}
-
-
 decodeCharacter : Json.Decode.Decoder Character
 decodeCharacter =
     Json.Decode.map7 Character.makeCharacter
