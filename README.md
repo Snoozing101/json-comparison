@@ -83,7 +83,7 @@ type Item
 ## JSON used in unit tests
 
 
-```JSON
+```json
    {
      "Class": "Wanderer",
      "Name": "Bilbo",
@@ -108,4 +108,12 @@ type Item
      ]
    }
 ```
+## Vanilla JSON notes
 
+Really hard work to set up & understand rather a lot of boiler plate code.
+
+## Pipeline JSON notes
+
+This really just replaces the map(n) range of functions & allows for a pipeline
+type syntax. Overall it looks a little nicer & can handle much larger JSON
+decodes.
