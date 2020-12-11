@@ -117,3 +117,10 @@ Really hard work to set up & understand rather a lot of boiler plate code.
 This really just replaces the map(n) range of functions & allows for a pipeline
 type syntax. Overall it looks a little nicer & can handle much larger JSON
 decodes.
+
+## Codec JSON notes
+
+I just can't figure out how to get this to work. Looking at the examples it
+looks like it turns custom types int "tag": "typeNam", "argv[]": "". This isn't
+what I want at all. The other methods may be harder work, but at least I feel I
+can get _exactly_ the JSON out and ELm objects in that I'm looking for.
